@@ -6,7 +6,7 @@ mod prelude;
 
 use std::fs::read_dir;
 
-use actix_web::{get, App, HttpServer, Result as AwResult};
+use actix_web::{get, http::StatusCode, App, HttpServer, ResponseError, Result as AwResult};
 use maud::{html, Markup};
 use std::io;
 
@@ -22,6 +22,26 @@ async fn home() -> AwResult<Markup> {
             }
             body {
                 h1 { "Hello World!" }
+                button hx-get="/demo" hx-target="body" hx-swap="outerHTML" { "List files" }
+            }
+        }
+    })
+}
+
+#[get("/demo")]
+async fn demo() -> AwResult<Markup> {
+    let mut files = vec![];
+    for entry in read_dir("./")?.filter_map(|e| e.ok()) {
+        let path: String = W(&entry).try_into()?;
+        files.push(path);
+    }
+
+    Ok(html! {
+        title { "List of files" }
+        h1 { "List of files" }
+        ul {
+            @for file in files {
+                li { (file) }
             }
         }
     })
@@ -29,7 +49,7 @@ async fn home() -> AwResult<Markup> {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(home))
+    HttpServer::new(|| App::new().service(demo).service(home))
         .bind(("0.0.0.0", 8080))?
         .run()
         .await
