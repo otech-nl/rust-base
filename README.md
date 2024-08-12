@@ -17,5 +17,5 @@ Suggested packages:
 - [serde](https://crates.io/crates/serde) with `derive` and [serde_json](https://crates.io/crates/serde_json) for data (de)serialization
 - [sqlx](https://crates.io/crates/sqlx) with [sqlite](https://crates.io/crates/sqlx-sqlite) for database access
 - [actix-web](https://crates.io/crates/actix-web) as web server and [actix-web-httpauth](https://crates.io/crates/actix-web-httpauth) for HTTP authentication
-- [askama](https://crates.io/crates/askama) for type-safe HTML templates and [maud](https://crates.io/crates/maud) for inline HTML partials
+- [askama](https://crates.io/crates/askama) for type-safe HTML templates and [maud](https://maud.lambda.xyz/) for inline HTML partials
 - [futures_util](https://docs.rs/futures-util/latest/futures_util/) async utilities
