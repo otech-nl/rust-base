@@ -1,0 +1,9 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/rust:1-1-bullseye
+    volumes:
+      - .:/workspace:cached
+    working_dir: /workspace
+    ports:
+      - 8080:8080
+    command: sleep infinity
